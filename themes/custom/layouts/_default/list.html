@@ -1,39 +1,27 @@
 {{ define "main" }}
-<div class="full-container">
-  {{ $posts := where .Site.RegularPages "Type" "posts" }}
-  {{ with index $posts 0 }}
-  <div class="featured-post">
-    <span class="cat-label">Featured</span>
-    <h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
-    <p>{{ .Description | default .Summary | truncate 150 }}</p>
-  </div>
-  {{ end }}
-</div>
-<div class="container">
-  <div class="main-content">
-    <div class="post-row">
-      {{ range where .Site.RegularPages "Type" "posts" }}
-      <div class="post-tile">
-        <span class="cat-label">{{ index .Params.tags 0 | default "Guide" }}</span>
-        <h3><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
-        <p style="font-size:0.85rem;margin-top:0.5rem;opacity:0.75">{{ .Date.Format "Jan 2, 2006" }}</p>
+<div class="container" style="padding-top:2rem">
+  <h1 class="page-heading">All Articles</h1>
+  <p class="page-sub">{{ .Site.Params.description }}</p>
+  <div class="post-grid" style="margin-top:2rem">
+    {{ range .Pages }}
+    <article class="post-card">
+      <div class="card-thumb" style="background: linear-gradient(135deg, var(--card) 0%, var(--main) 100%);">
+        {{ range first 1 .Params.tags }}<span class="card-category">{{ . }}</span>{{ end }}
       </div>
-      {{ end }}
-    </div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span>{{ .Date.Format "Jan 2, 2006" }}</span>
+          <span>&middot;</span>
+          <span>{{ .ReadingTime }} min read</span>
+        </div>
+        <h3 class="card-title"><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
+        <p class="card-desc">{{ .Description | default .Summary | truncate 120 }}</p>
+      </div>
+      <div class="card-footer">
+        <a href="{{ .Permalink }}" class="card-link">Read more &rarr;</a>
+      </div>
+    </article>
+    {{ end }}
   </div>
-  <aside class="sidebar">
-    <div class="sidebar-widget">
-      <h3>Recent Posts</h3>
-      {{ range first 6 (where .Site.RegularPages "Type" "posts") }}
-      <div class="sidebar-post"><a href="{{ .Permalink }}">{{ .Title }}</a></div>
-      {{ end }}
-    </div>
-    <div class="sidebar-widget">
-      <h3>Topics</h3>
-      {{ range .Site.Taxonomies.tags }}
-      <span class="tag"><a href="{{ .Page.Permalink }}">{{ .Page.Title }}</a></span>
-      {{ end }}
-    </div>
-  </aside>
 </div>
 {{ end }}
