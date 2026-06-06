@@ -1,4 +1,9 @@
 ---
+image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&h=450&fit=crop&auto=format&q=80"
+cover:
+  image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&h=450&fit=crop&auto=format&q=80"
+  alt: "cover"
+  relative: false
 title: "Welcome to SkyFoam Local Biz"
 date: 2026-06-01
 description: "Local business marketing: Google My Business, review generation, and neighborhood lead strategies."
